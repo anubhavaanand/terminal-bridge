@@ -24,7 +24,7 @@ fi
 
 # ── KITTY ────────────────────────────────────────────────────────────────
 if command -v kitty >/dev/null 2>&1; then
-    kitty_data=$(kitty @ ls 2>/dev/null || true)
+    kitty_data=$(kitty @ --to=unix:/tmp/kitty_bridge ls 2>/dev/null || kitty @ ls 2>/dev/null || true)
     if [ -n "$kitty_data" ] && command -v python3 >/dev/null 2>&1; then
         while IFS='|' read -r win_id title; do
             [ "$win_id" = "$MY_KITTY_WIN" ] && continue

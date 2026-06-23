@@ -41,7 +41,8 @@ case "$TYPE" in
 
   kitty)
     command -v kitty >/dev/null 2>&1 || { echo "Error: kitty not found"; exit 1; }
-    kitty @ get-text --match "id:${ID}" --extent=screen 2>/dev/null \
+    { kitty @ --to=unix:/tmp/kitty_bridge get-text --match "id:${ID}" --extent=screen 2>/dev/null \
+      || kitty @ get-text --match "id:${ID}" --extent=screen 2>/dev/null; } \
         | tail -n "$LINES" | clean_output \
         || echo "Error: kitty window '$ID' not found or allow_remote_control not set"
     ;;

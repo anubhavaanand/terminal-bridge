@@ -27,7 +27,8 @@ case "$TYPE" in
         || echo "Error: tmux pane '$ID' not found"
     ;;
   kitty)
-    kitty @ send-text --match "id:${ID}" "${CMD}"$'\n' 2>/dev/null \
+    { kitty @ --to=unix:/tmp/kitty_bridge send-text --match "id:${ID}" "${CMD}"$'\n' 2>/dev/null \
+      || kitty @ send-text --match "id:${ID}" "${CMD}"$'\n' 2>/dev/null; } \
         || echo "Error: kitty window '$ID' not found"
     ;;
   wezterm)

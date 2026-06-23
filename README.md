@@ -15,8 +15,9 @@
 ## ✨ Features
 - **Zero-prep Tracking:** Natively reads output from `tmux`, `Kitty`, and `WezTerm` without any setup commands.
 - **Concurrent Slots:** Watch your backend API server and frontend build simultaneously.
-- **Auto-Fallbacks:** Gracefully falls back to `script` logging for SSH, containers, and native terminals.
-- **Strict Security:** Hard-blocks destructive commands (`rm`, `sudo`, `kill`) and strips malicious ANSI escapes.
+- **Auto-Fallbacks:** Gracefully falls back to `script` logging for SSH, containers, and unsupported terminals (with pure-sed backspace handling).
+- **Strict Security:** Hard-blocks destructive commands (`rm`, `sudo`, `kill`) even if chained or piped, and strips malicious ANSI escapes.
+- **Headless IPC:** Maintains flawless terminal connections even when your agent is running entirely in the background.
 
 ## 🚀 Quick Start
 

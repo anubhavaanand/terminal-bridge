@@ -70,7 +70,8 @@ case "$TYPE" in
         exit 1
     fi
     # Stale check — warn but read anyway
-    age=$(( $(date +%s) - $(date -r "$TARGET_LOG" +%s 2>/dev/null || echo 0) ))
+    file_time=$(stat -c %Y "$TARGET_LOG" 2>/dev/null || stat -f %m "$TARGET_LOG" 2>/dev/null || echo 0)
+    age=$(( $(date +%s) - file_time ))
     [ $age -gt 3600 ] && echo "[WARNING: log is $((age/60))min old — may be stale]"
     tail -n "$LINES" "$TARGET_LOG" | clean_output
     ;;

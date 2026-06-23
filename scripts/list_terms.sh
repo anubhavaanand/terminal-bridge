@@ -57,7 +57,8 @@ fi
 LOG_FILE="/tmp/rt.log"
 [ -w /tmp ] || LOG_FILE="/var/tmp/rt.log"
 if [ -f "$LOG_FILE" ]; then
-    age=$(( $(date +%s) - $(date -r "$LOG_FILE" +%s 2>/dev/null || echo 0) ))
+    file_time=$(stat -c %Y "$LOG_FILE" 2>/dev/null || stat -f %m "$LOG_FILE" 2>/dev/null || echo 0)
+    age=$(( $(date +%s) - file_time ))
     [ $age -gt 3600 ] && status="STALE(${age}s old)" || status="active"
     INDEX=$((INDEX+1))
     echo "${INDEX}|script|${LOG_FILE}|script-session|${status}"

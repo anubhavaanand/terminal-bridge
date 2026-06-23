@@ -92,8 +92,7 @@ If missing, tell user:
 
 On approval:
 ```bash
-echo "allow_remote_control yes" >> ~/.config/kitty/kitty.conf
-kill -SIGUSR1 $(pgrep -f "kitty")
+bash ./scripts/patch_kitty.sh
 ```
 
 ### tmux — no config change needed

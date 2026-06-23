@@ -19,6 +19,7 @@ fi
 # ── CLEAN PIPELINE ───────────────────────────────────────────────────────
 clean_output() {
     sed -E 's/\x1b(\[[0-9;?]*[a-zA-Z]|\][^\x07]*\x07|[M78H])//g' \
+    | sed -e ':a' -e 's/[^\x08]\x08//g' -e 'ta' \
     | sed -E 's/\r//g' \
     | { command -v col >/dev/null 2>&1 && col -b || cat; } \
     | { [ -n "${FISH_VERSION:-}" ] && grep -v "^__fish\|^\[\?" || cat; }

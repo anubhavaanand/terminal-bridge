@@ -14,7 +14,8 @@ if [ -z "$TYPE" ] || [ -z "$ID" ] || [ -z "$CMD" ]; then
 fi
 
 # ── ALWAYS-BLOCK DESTRUCTIVE PATTERNS ───────────────────────────────────
-BLOCKED='(^rm[ /]|^sudo |^kill |^dd |^mkfs|^chmod|^chown|curl.*\|.*sh|wget.*\|.*sh|\:\:)'
+# Block even if preceded by shell operators (&&, |, ;)
+BLOCKED='(^|[;&|]+)[[:space:]]*(rm[ /]|sudo |kill |dd |mkfs|chmod |chown |curl.*\|.*sh|wget.*\|.*sh|\:\:)'
 if echo "$CMD" | grep -qiE "$BLOCKED"; then
     echo "BLOCKED: '$CMD' is destructive. Requires explicit user confirmation in chat."
     exit 2

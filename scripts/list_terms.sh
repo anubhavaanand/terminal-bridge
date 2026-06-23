@@ -12,7 +12,7 @@ MY_TMUX_PANE=""
 INDEX=0
 
 # ── TMUX ────────────────────────────────────────────────────────────────
-if [ -n "${TMUX:-}" ] && command -v tmux >/dev/null 2>&1; then
+if command -v tmux >/dev/null 2>&1; then
     while IFS='|' read -r pane_id session win pane cmd; do
         [ "$pane_id" = "$MY_TMUX_PANE" ] && continue
         INDEX=$((INDEX+1))
@@ -23,7 +23,7 @@ if [ -n "${TMUX:-}" ] && command -v tmux >/dev/null 2>&1; then
 fi
 
 # ── KITTY ────────────────────────────────────────────────────────────────
-if [ -n "${KITTY_WINDOW_ID:-}" ] && command -v kitty >/dev/null 2>&1; then
+if command -v kitty >/dev/null 2>&1; then
     kitty_data=$(kitty @ ls 2>/dev/null || true)
     if [ -n "$kitty_data" ] && command -v python3 >/dev/null 2>&1; then
         while IFS='|' read -r win_id title; do
@@ -41,7 +41,7 @@ for osw in json.load(sys.stdin):
 fi
 
 # ── WEZTERM ──────────────────────────────────────────────────────────────
-if [ -n "${WEZTERM_PANE:-}" ] && command -v wezterm >/dev/null 2>&1; then
+if command -v wezterm >/dev/null 2>&1; then
     while IFS=$'\t' read -r pane_id title; do
         [ "$pane_id" = "$MY_WEZTERM_PANE" ] && continue
         INDEX=$((INDEX+1))

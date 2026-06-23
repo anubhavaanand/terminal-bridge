@@ -21,9 +21,7 @@ clean_output() {
     sed -E 's/\x1b(\[[0-9;?]*[a-zA-Z]|\][^\x07]*\x07|[M78H])//g' \
     | sed -E 's/\r//g' \
     | { command -v col >/dev/null 2>&1 && col -b || cat; } \
-    | { [ -n "${FISH_VERSION:-}" ] && grep -v "^__fish\|^\[\?" || cat; } \
-    | tr -cd '[:print:]\n\t' \
-    | sed '/^[[:space:]]*$/d'
+    | { [ -n "${FISH_VERSION:-}" ] && grep -v "^__fish\|^\[\?" || cat; }
 }
 
 # ── READ BY TYPE ─────────────────────────────────────────────────────────
